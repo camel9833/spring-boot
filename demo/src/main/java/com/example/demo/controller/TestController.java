@@ -24,7 +24,6 @@ public class TestController {
 		String json = "";
 		String url = "https://jsonplaceholder.typicode.com/posts";
 
-		// ---------------------------------------------------------
 		try {
 			OkHttpClient client = new OkHttpClient();
 			Request request = new Request.Builder()
@@ -44,11 +43,8 @@ public class TestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		// ---------------------------------------------------------
-
+		
 		return json;
-
 	}
 
 }
