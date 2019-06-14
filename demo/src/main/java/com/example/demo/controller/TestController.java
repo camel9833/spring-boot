@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -14,13 +18,19 @@ public class TestController {
 	public String getTest() {
 //		return "{\"result\":true,\"resultMsg\":\"성공입니다.\"}";
 		String uri = "https://jsonplaceholder.typicode.com/posts";
-		String result = get(uri);
-		return result;
+		String jsonString = get(uri);
+//		System.out.println(jsonData);
+
+	//---------------------------------------------------------
+
+	//---------------------------------------------------------
 		
+	return jsonString;
+
 	}
 
 	public String get(String requestURL) {
-		
+
 		String message = "-1";
 		try {
 			OkHttpClient client = new OkHttpClient();
@@ -33,7 +43,7 @@ public class TestController {
 
 			// 출력
 			message = response.body().string();
-			System.out.println(message);
+//			System.out.println(message);
 		} catch (Exception e) {
 			System.err.println(e.toString());
 		}
