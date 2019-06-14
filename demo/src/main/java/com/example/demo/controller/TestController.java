@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.VO.TestVO;
@@ -20,8 +21,10 @@ import com.squareup.okhttp.Response;
 @RestController
 public class TestController {
 	@RequestMapping("/test")
-	public String getTest() {
+	public @ResponseBody List<TestVO> getTest() {
 		String json = "";
+		List<TestVO> info = new ArrayList<TestVO>();
+		
 		String url = "https://jsonplaceholder.typicode.com/posts";
 
 		try {
@@ -35,16 +38,22 @@ public class TestController {
 			
 			// string --> list
 			Gson gson = new Gson();
-			List<TestVO> info = Arrays.asList(gson.fromJson(result, TestVO[].class));
+			info = Arrays.asList(gson.fromJson(result, TestVO[].class));
+ 
+			// list 
+			int len = info.size();
+			for (int i=0; i <len; i++) {
+				System.out.println(info.get(i).getTitle());
+			}
 
 			// list -> string
-			json = gson.toJson(info);
+			// json = gson.toJson(info);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return json;
+		return info;
 	}
 
 }
